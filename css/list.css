@@ -1,0 +1,48 @@
+*{
+	font-family:Helvetica;
+}
+.tab-pane ul {
+	padding:0;
+}
+.tab-pane ul li{
+	left:0;
+	width:auto;
+	background: -webkit-linear-gradient(#fff, #f6f6f6);
+	border-top:1px dotted;
+	border-bottom:1px dotted;
+}
+.tab-pane ul li:hover{
+	text-decoration: none;
+
+	background: -webkit-linear-gradient(#e6e6e6, #adadad);
+	cursor:hand;
+	color:#fff;
+}
+.tab-pane ul li a{
+	color:#000;
+	text-decoration: none;
+	border-radius: 2px;
+}
+.tab-pane ul li a:hover{
+	text-decoration: none;
+	border-radius: 2px;
+}
+.tab-pane ul li .cc-event-date {
+	color:#595856;
+	text-align: center;
+	background: #f5f5f5;
+}
+.tab-pane ul li .cc-event-date .cc-event-day {
+	margin-top:7px;
+}
+.tab-pane ul li .cc-event-title {
+	margin-left:5px;
+	margin-top:18px;
+}
+.tab-pane ul li .cc-event-location{
+	margin-left:5px;
+	margin-top:1px;
+	font-size:12px;
+}
+.tab-pane ul li .cc-event-month{
+}
