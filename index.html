@@ -9,7 +9,8 @@
   <!-- custom -->
   <link rel="stylesheet" type="text/css" href="css/calendar.css"></link>
   <link rel="stylesheet" type="text/css" href="css/list.css">
-
+  <!-- bootstrap for tabs -->
+  <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -21,6 +22,23 @@
   <!-- community-calendar -->
   <script src="js/steam.js"></script>
   <script src="js/calendar.js"></script>
+
+  <script type="text/x-handlebars" data-template-name="dashboard">
+      <ul class="nav nav-tabs">
+        <li><a href="#" data-tab="list" {{action selectTab "list"}}>list</a></li>
+        <li><a href="#" data-tab="cal" {{action selectTab "cal"}}>cal</a></li>
+        <li><a href="#" data-tab="add" {{action selectTab "add"}}>add</a></li>
+      </ul>
+    {{outlet tab}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="cal">
+    <div class="tab-content">calendar</div>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="add">
+    <div class="tab-content">add events</div>
+  </script>
 
 </body>
 </html>

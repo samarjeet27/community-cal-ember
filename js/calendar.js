@@ -2,17 +2,17 @@
 var App = Ember.Application.create();
 // list of events
 var _events = []
+
+function handlebars_extend() {
 	// handlebar helpers
-var helpers = [{
+	var helpers = [{
 		name: 'date',
 		date: function(unix) {
 			var date;
 			date = new Date(unix * 1000);
 			return date.toDateString();
 		}
-	},
-
-	{
+	}, {
 		name: 'day',
 		day: function(unix) {
 			var date;
@@ -40,53 +40,111 @@ var helpers = [{
 			date = new Date(unix * 1000);
 			return date.getTime();
 		}
+	}];
+
+
+	for (var i = 0; i < helpers.length; i++) {
+		var helper = helpers[i];
+		Ember.Handlebars.helper(helper.name, helper[helper.name]);
 	}
-];
 
+	Handlebars.registerHelper('link', function(id) {
+		id = Handlebars.Utils.escapeExpression(id);
+		template = '#/communitycal/';
+		// don't need the ending tag (safe escape)
+		var result = '<a href="#/communitycal/' + id + '">';
 
-for (var i = 0; i < helpers.length; i++) {
-	var helper = helpers[i];
-	console.log(typeof(helper[helper.name]));
-	Ember.Handlebars.helper(helper.name, helper[helper.name]);
+		return new Handlebars.SafeString(result);
+	});
+
 }
+handlebars_extend();
 
-Handlebars.registerHelper('link', function(id) {
-	id = Handlebars.Utils.escapeExpression(id);
-	template = '#/communitycal/';
-	// don't need the ending tag (safe escape)
-	var result = '<a href="#/communitycal/' + id + '">';
-
-	return new Handlebars.SafeString(result);
+App.IndexRoute = Ember.Route.extend({
+	redirect: function() {
+		this.transitionTo('dashboard');
+	}
 });
+
+App.Router.map(function() {
+	this.route('dashboard');
+});
+
+
+App.DashboardRoute = Ember.Route.extend({
+	events: {
+		selectTab: function(name) {
+			this.controllerFor('dashboard').set('activeTab', name);
+			this.render(name, {
+				into: 'dashboard',
+				outlet: 'tab'
+			});
+		}
+	},
+
+	setupController: function(controller) {
+		controller.set('activeTab', 'list');
+	},
+
+	renderTemplate: function() {
+		this.render();
+		this.render('list', {
+			outlet: 'tab',
+			into: 'dashboard'
+		});
+	}
+});
+
+App.DashboardView = Ember.View.extend({
+	activeTab: Ember.computed.alias('controller.activeTab'),
+
+	activeTabDidChange: (function() {
+		if (this.state == 'inDOM') this.setActiveTab();
+	}).observes('activeTab'),
+
+	didInsertElement: function() {
+		this.setActiveTab();
+	},
+
+	setActiveTab: function() {
+		$('.active').removeClass('active');
+		var activeTab = this.get('activeTab');
+		this.$("a[data-tab='%@']".fmt(activeTab)).parent().addClass('active');
+	}
+
+});
+
 steam().get("techgrind.events/order-by-date", function(data) {
 	_events = data['event-list'];
+
 	App.obj = Ember.Object.create({
 		"events": _events
 	});
-	var template = '<div class="community-calendar tabbable tabs-below">\
-      <div class="tab-content">\
-        <div class="tab-pane active">\
-          <ul>\
-            {{#with App.obj}}\
-              {{#each event in events}}\
-              <li class="cc-event">\
-                <a href="">\
-                  <div class="cc-event-date">\
-                    <div class="cc-event-day">{{day event.date}}</div>\
-                    <div class="cc-event-month">{{month event.date}}</div>\
-                    <div class="cc-event-year">{{year event.date}}</div>\
-                    <div class="cc-event-time">{{time event.date}}</div>\
-                  </div>\
-                  <div class="cc-event-title">{{event.title}}</div>\
-                  <div class="cc-event-location">{{event.address}}</div>\
-                </a>\
-              </li>\
-              {{/each}}\
-            {{/with}}\
-          </ul>\
-        </div>\
-      </div>\
-    </div>'
 
-	$('body').append('<script type="text/x-handlebars">' + template + '</script>');
+	var template = '\
+	<div class="community-calendar tabbable tabs-below">\
+	<div class="tab-content">\
+	<ul class="event-list">\
+		{{#with App.obj}}\
+		{{#each event in events}}\
+		<li class="cc-event">\
+		<a href="">\
+		<div class="cc-event-date">\
+			<div class="cc-event-day">{{day event.date}}</div>\
+			<div class="cc-event-month">{{month event.date}}</div>\
+			<div class="cc-event-year">{{year event.date}}</div>\
+			<div class="cc-event-time">{{time event.date}}</div>\
+		</div>\
+		<div class="cc-event-title">{{event.title}}</div>\
+		<div class="cc-event-location">{{event.address}}</div>\
+		</a>\
+		</li>\
+		{{/each}}\
+		{{/with}}\
+	</ul>\
+	</div>\
+	</div>';
+
+	$('body').append('<script data-template-name="list" type="text/x-handlebars">' + template + '</script>');
+
 });

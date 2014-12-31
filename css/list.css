@@ -1,48 +1,51 @@
 *{
 	font-family:Helvetica;
 }
-.tab-pane ul {
+.event-list{
+	margin:0;
 	padding:0;
 }
-.tab-pane ul li{
+.cc-event{
 	left:0;
 	width:auto;
 	background: -webkit-linear-gradient(#fff, #f6f6f6);
 	border-top:1px dotted;
 	border-bottom:1px dotted;
 }
-.tab-pane ul li:hover{
+.cc-event:hover{
 	text-decoration: none;
 
 	background: -webkit-linear-gradient(#e6e6e6, #adadad);
 	cursor:hand;
 	color:#fff;
 }
-.tab-pane ul li a{
+
+.cc-event a{
 	color:#000;
 	text-decoration: none;
 	border-radius: 2px;
 }
-.tab-pane ul li a:hover{
+.cc-event a:hover{
 	text-decoration: none;
 	border-radius: 2px;
 }
-.tab-pane ul li .cc-event-date {
+.cc-event-date {
 	color:#595856;
 	text-align: center;
 	background: #f5f5f5;
 }
-.tab-pane ul li .cc-event-date .cc-event-day {
+.cc-event-day {
 	margin-top:7px;
 }
-.tab-pane ul li .cc-event-title {
+.cc-event-title {
 	margin-left:5px;
 	margin-top:18px;
 }
-.tab-pane ul li .cc-event-location{
+.cc-event-location{
 	margin-left:5px;
 	margin-top:1px;
 	font-size:12px;
 }
-.tab-pane ul li .cc-event-month{
+.cc-event-month{
+	margin-top:2px;
 }
