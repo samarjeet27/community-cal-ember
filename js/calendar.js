@@ -121,30 +121,4 @@ steam().get("techgrind.events/order-by-date", function(data) {
 		"events": _events
 	});
 
-	var template = '\
-	<div class="community-calendar tabbable tabs-below">\
-	<div class="tab-content">\
-	<ul class="event-list">\
-		{{#with App.obj}}\
-		{{#each event in events}}\
-		<li class="cc-event">\
-		<a href="">\
-		<div class="cc-event-date">\
-			<div class="cc-event-day">{{day event.date}}</div>\
-			<div class="cc-event-month">{{month event.date}}</div>\
-			<div class="cc-event-year">{{year event.date}}</div>\
-			<div class="cc-event-time">{{time event.date}}</div>\
-		</div>\
-		<div class="cc-event-title">{{event.title}}</div>\
-		<div class="cc-event-location">{{event.address}}</div>\
-		</a>\
-		</li>\
-		{{/each}}\
-		{{/with}}\
-	</ul>\
-	</div>\
-	</div>';
-
-	$('body').append('<script data-template-name="list" type="text/x-handlebars">' + template + '</script>');
-
 });
