@@ -114,11 +114,60 @@ App.DashboardView = Ember.View.extend({
 
 });
 
+
 steam().get("techgrind.events/order-by-date", function(data) {
 	_events = data['event-list'];
 
 	App.obj = Ember.Object.create({
 		"events": _events
 	});
+	var templates = [{
+		name:'list',
+		list:'<div class="community-calendar tabbable tabs-below">\
+	      <div class="tab-pane">\
+	        <ul class="event-list">\
+	          {{#with App.obj}}\
+	          {{#each event in events}}\
+	          <li class="cc-event">\
+	            <a href="">\
+	              <div class="cc-event-date">\
+	                <div class="cc-event-day">{{day event.date}}</div>\
+	                <div class="cc-event-month">{{month event.date}}</div>\
+	                <div class="cc-event-year">{{year event.date}}</div>\
+	                <div class="cc-event-time">{{time event.date}}</div>\
+	              </div>\
+	              <div class="cc-event-title">{{event.title}}</div>\
+	              <div class="cc-event-location">{{event.address}}</div>\
+	            </a>\
+	          </li>\
+	          {{/each}}\
+	          {{/with}}\
+	        </ul>\
+	      </div>\
+	    </div>'
+	}, {
+		name:'cal',
+		cal:' <div class="tab-pane">calendar</div>'
+	}, {
+		name:'add',
+		add:'<div class="tab-pane">add events</div>'
+	}, {
+		name:'dashboard',
+		dashboard:'{{outlet tab}}\
+    <ul class="tabrow">\
+      <li><a href="#" data-tab="list" {{action selectTab "list"}}>list</a></li>\
+      <li><a href="#" data-tab="cal" {{action selectTab "cal"}}>cal</a></li>\
+      <li><a href="#" data-tab="add" {{action selectTab "add"}}>add</a></li>\
+    </ul>'
+	}
+	];
+	for (var i = 0; i < templates.length; i++) {
+		$('body').append('<script type="text/x-handlebars" data-template-name="'+ templates[i].name + '">'+templates[i][templates[i].name] + "</script>");
+	};
+});
 
+$(".tabrow li").click(function(e) {
+	e.preventDefault();
+	$(".tabrow li").removeClass("active");
+	$(this).addClass("active");
 });

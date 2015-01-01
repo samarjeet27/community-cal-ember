@@ -1,0 +1,9 @@
+@import url('normalize.css');
+@import url('calendar.css');
+@import url('list.css');
+@import url('tabs.css');
+
+.ember-application {
+    margin: 20px;
+    width:250px;
+}

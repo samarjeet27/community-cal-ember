@@ -4,13 +4,7 @@
   <meta charset="utf-8">
   <title>Community Calendar</title>
   <!-- ember required -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-  <!-- custom -->
-  <link rel="stylesheet" type="text/css" href="css/calendar.css"></link>
-  <link rel="stylesheet" type="text/css" href="css/list.css">
-  <!-- bootstrap without tabs -->
-  <link rel="stylesheet" type="text/css" href="css/tabs.css"></head>
+  <link rel="stylesheet" href="css/styles.css"</link>
 </head>
 <body>
 
@@ -22,54 +16,5 @@
   <!-- community-calendar -->
   <script src="js/steam.js"></script>
   <script src="js/calendar.js"></script>
-
-  <script type="text/x-handlebars" data-template-name="list">
-    <div class="community-calendar tabbable tabs-below">
-      <div class="tab-pane">
-        <ul class="event-list">
-          {{#with App.obj}}
-          {{#each event in events}}
-          <li class="cc-event">
-            <a href="">
-              <div class="cc-event-date">
-                <div class="cc-event-day">{{day event.date}}</div>
-                <div class="cc-event-month">{{month event.date}}</div>
-                <div class="cc-event-year">{{year event.date}}</div>
-                <div class="cc-event-time">{{time event.date}}</div>
-              </div>
-              <div class="cc-event-title">{{event.title}}</div>
-              <div class="cc-event-location">{{event.address}}</div>
-            </a>
-          </li>
-          {{/each}}
-          {{/with}}
-        </ul>
-      </div>
-    </div>
-  </script>
-  <script type="text/x-handlebars" data-template-name="cal">
-    <div class="tab-pane">calendar</div>
-  </script>
-  
-  <script type="text/x-handlebars" data-template-name="add">
-    <div class="tab-pane">add events</div>
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="dashboard">
-    {{outlet tab}}
-    <ul class="tabrow">
-      <li><a href="#" data-tab="list" {{action selectTab "list"}}>list</a></li>
-      <li><a href="#" data-tab="cal" {{action selectTab "cal"}}>cal</a></li>
-      <li><a href="#" data-tab="add" {{action selectTab "add"}}>add</a></li>
-    </ul>
-  </script>
-
-  <script type="text/javascript">
-    $("li").click(function(e) {
-      e.preventDefault();
-      $("li").removeClass("active");
-      $(this).addClass("active");
-    });
-  </script>
 </body>
 </html>
