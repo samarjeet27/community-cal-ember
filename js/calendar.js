@@ -165,9 +165,3 @@ steam().get("techgrind.events/order-by-date", function(data) {
 		$('body').append('<script type="text/x-handlebars" data-template-name="'+ templates[i].name + '">'+templates[i][templates[i].name] + "</script>");
 	};
 });
-
-$(".tabrow li").click(function(e) {
-	e.preventDefault();
-	$(".tabrow li").removeClass("active");
-	$(this).addClass("active");
-});
