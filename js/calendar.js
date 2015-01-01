@@ -40,6 +40,11 @@ function handlebars_extend() {
 			date = new Date(unix * 1000);
 			return date.getTime();
 		}
+	}, {
+		name: 'log',
+		log: function(x) {
+			console.log(x);
+		}
 	}];
 
 
@@ -114,16 +119,43 @@ App.DashboardView = Ember.View.extend({
 
 });
 
+App.Steam = Ember.Object.extend({
+	get: function(req, callback, error) {
+		var uri = 'http://dev-back1.techgrind.asia/scripts/rest.pike?request=' + req;
+		var xhr = $.ajax({
+			url: uri,
+			dataType: 'json',
+			data: '',
+			contentType: 'application/json; charset=utf-8',
+			type: 'GET',
+			async: false,
+			success: function(data) {
+				callback(data['event-list']);
+			}
+		});
 
-steam().get("techgrind.events/order-by-date", function(data) {
-	_events = data['event-list'];
+		if (xhr.status != 200) { // error
+			if (typeof(error) == 'undefined')
+				error = console.log;
+			error({
+				errorCode: xhr.status,
+				errorMessage: xhr.statusText
+			});
+		}
+	}
+});
+
+var steam = App.Steam.create();
+
+steam.get('techgrind.events/order-by-date', function(data) {
 
 	App.obj = Ember.Object.create({
-		"events": _events
+		"events": data
 	});
+
 	var templates = [{
-		name:'list',
-		list:'<div class="community-calendar tabbable tabs-below">\
+		name: 'list',
+		list: '<div class="community-calendar tabbable tabs-below">\
 	      <div class="tab-pane">\
 	        <ul class="event-list">\
 	          {{#with App.obj}}\
@@ -146,22 +178,21 @@ steam().get("techgrind.events/order-by-date", function(data) {
 	      </div>\
 	    </div>'
 	}, {
-		name:'cal',
-		cal:' <div class="tab-pane">calendar</div>'
+		name: 'cal',
+		cal: ' <div class="tab-pane">calendar</div>'
 	}, {
-		name:'add',
-		add:'<div class="tab-pane">add events</div>'
+		name: 'add',
+		add: '<div class="tab-pane">add events</div>'
 	}, {
-		name:'dashboard',
-		dashboard:'{{outlet tab}}\
+		name: 'dashboard',
+		dashboard: '{{outlet tab}}\
     <ul class="tabrow">\
       <li><a href="#" data-tab="list" {{action selectTab "list"}}>list</a></li>\
       <li><a href="#" data-tab="cal" {{action selectTab "cal"}}>cal</a></li>\
       <li><a href="#" data-tab="add" {{action selectTab "add"}}>add</a></li>\
     </ul>'
-	}
-	];
+	}];
 	for (var i = 0; i < templates.length; i++) {
-		$('body').append('<script type="text/x-handlebars" data-template-name="'+ templates[i].name + '">'+templates[i][templates[i].name] + "</script>");
+		$('body').append('<script type="text/x-handlebars" data-template-name="' + templates[i].name + '">' + templates[i][templates[i].name] + "</script>");
 	};
 });
