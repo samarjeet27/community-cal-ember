@@ -1,5 +1,7 @@
 // create ember-app instance
-var App = Ember.Application.create();
+var App = Ember.Application.create({
+	rootElement: '.community-calendar'
+});
 // list of events
 var _events = []
 
@@ -129,7 +131,7 @@ steam.get('techgrind.events/order-by-date', function(data) {
 
 	var templates = [{
 		name: 'list',
-		list: '<div class="community-calendar tabbable tabs-below">\
+		list: '\
 	      <div class="tab-pane">\
 	        <ul class="event-list">\
 	          {{#with App.obj}}\
@@ -149,8 +151,7 @@ steam.get('techgrind.events/order-by-date', function(data) {
 	          {{/each}}\
 	          {{/with}}\
 	        </ul>\
-	      </div>\
-	    </div>'
+	      </div>'
 	}, {
 		name: 'cal',
 		cal: ' <div class="tab-pane">calendar</div>'
@@ -167,6 +168,6 @@ steam.get('techgrind.events/order-by-date', function(data) {
     </ul>'
 	}];
 	for (var i = 0; i < templates.length; i++) {
-		$('body').append('<script type="text/x-handlebars" data-template-name="' + templates[i].name + '">' + templates[i][templates[i].name] + "</script>");
+		$('.community-calendar').append('<script type="text/x-handlebars" data-template-name="' + templates[i].name + '">' + templates[i][templates[i].name] + "</script>");
 	};
 });
