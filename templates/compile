@@ -1,0 +1,21 @@
+#!/usr/bin/node
+// compiles handlebars templates
+// run using:
+// $ npm install -g ember-template-compiler
+// $ compile
+var compiler = require('ember-template-compiler');
+var path = require('path');
+var fs = require('fs');
+
+var files = fs.readdirSync('.');
+
+for (var i = 0; i < files.length; i++) {
+    if ( path.extname(file[i]) == '.handlebars' ) {
+        var file = files[i].replace('.handlebars', '');
+    	var template = fs.readFileSync(file + '.handlebars').toString();
+    	var input = compiler.precompile(template).toString();
+    	var output = "Ember.TEMPLATES['"+file+"'] = Ember.Handlebars.template(" + input + ");";
+    	
+    	fs.writeFileSync(file+'.js', output);
+    }
+};
