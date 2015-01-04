@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/local/bin/node
 // compiles handlebars templates
 // run using:
 // $ npm install -g ember-template-compiler
