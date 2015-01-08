@@ -1,85 +1,20 @@
 // create ember-app instance
-var App = Ember.Application.create({
+var BLUGCalendarApp = Ember.Application.create({
     rootElement: '.community-calendar'
 });
-// list of events
-var _events = []
 
-function handlebars_extend() {
-    // handlebar helpers
-    var helpers = [{
-        name: 'date',
-        date: function(unix) {
-            var date;
-            date = new Date(unix * 1000);
-            return date.toDateString();
-        }
-    }, {
-        name: 'day',
-        day: function(unix) {
-            var date;
-            date = new Date(unix * 1000);
-            return date.getDate();
-        },
-    }, {
-        name: 'month',
-        month: function(unix) {
-            var date;
-            date = new Date(unix * 1000);
-            return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.getMonth()];
-        },
-    }, {
-        name: 'year',
-        year: function(unix) {
-            var date;
-            date = new Date(unix * 1000);
-            return date.getFullYear();
-        },
-    }, {
-        name: 'time',
-        time: function(unix) {
-            var date;
-            date = new Date(unix * 1000);
-            return date.getTime();
-        }
-    }, {
-        name: 'log',
-        log: function(x) {
-            console.log(x);
-        }
-    }];
-
-
-    for (var i = 0; i < helpers.length; i++) {
-        var helper = helpers[i];
-        Ember.Handlebars.helper(helper.name, helper[helper.name]);
-    }
-
-    // used handlebars as it works differently
-    Handlebars.registerHelper('link', function(id) {
-        id = Handlebars.Utils.escapeExpression(id);
-        template = '#/communitycal/';
-        // don't need the ending tag (safe escape)
-        var result = '<a href="#/communitycal/' + id + '">';
-
-        return new Handlebars.SafeString(result);
-    });
-
-}
-handlebars_extend();
-
-App.IndexRoute = Ember.Route.extend({
+BLUGCalendarApp.IndexRoute = Ember.Route.extend({
     redirect: function() {
         this.transitionTo('dashboard');
     }
 });
 
-App.Router.map(function() {
+BLUGCalendarApp.Router.map(function() {
     this.route('dashboard');
 });
 
 
-App.DashboardRoute = Ember.Route.extend({
+BLUGCalendarApp.DashboardRoute = Ember.Route.extend({
     events: {
         selectTab: function(name) {
             this.controllerFor('dashboard').set('activeTab', name);
@@ -103,7 +38,7 @@ App.DashboardRoute = Ember.Route.extend({
     }
 });
 
-App.DashboardView = Ember.View.extend({
+BLUGCalendarApp.DashboardView = Ember.View.extend({
     activeTab: Ember.computed.alias('controller.activeTab'),
 
     activeTabDidChange: (function() {
@@ -122,10 +57,10 @@ App.DashboardView = Ember.View.extend({
 
 });
 
-var steam = Steam.create(App);
+var steam = Steam.create(BLUGCalendarApp);
 
 steam.get('techgrind.events/order-by-date', function(data) {
-    App.obj = Ember.Object.create({
+    BLUGCalendarApp.obj = Ember.Object.create({
         "events": data['event-list']
     });
     var templates = [{
@@ -133,7 +68,7 @@ steam.get('techgrind.events/order-by-date', function(data) {
         list: '\
 	      <div class="tab-pane">\
 	        <ul class="event-list">\
-	          {{#with App.obj}}\
+	          {{#with BLUGCalendarApp.obj}}\
 	          {{#each event in events}}\
 	          <li class="cc-event">\
 	            <a href="">\

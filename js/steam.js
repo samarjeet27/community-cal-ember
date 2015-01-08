@@ -12,6 +12,6 @@ function Steam(App) {
 }
 
 Steam.create=function(App){
-	var s = new Steam(App); 
+	var s = new Steam(App);
 	return App.Steam.create();
 }
