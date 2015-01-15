@@ -7,7 +7,7 @@ function Steam(App) {
 		get: function(req, callback) {
 			var request = Ember.$.getJSON('http://dev-back1.techgrind.asia/scripts/rest.pike?request='+req);
 			request.then(callback)
-		}
+		},
 	});
 }
 
