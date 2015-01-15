@@ -18,10 +18,10 @@
 
   <!-- community-calendar -->
   <script src="js/steam.js"></script>
-  <script src="js/helpers.js"></script>
   <script src="js/calendar.js"></script>
 
-  <script type="text/x-handlebars">
+  <!-- community-calendar component scripts -->
+  <script type="text/x-handlebars" id="components/community-calendar">
   <div id="tab-container" class="tab-container">
     <div class="tab-pane community-calendar" id="list">
       <ul class="event-list">
@@ -53,6 +53,10 @@
       <li><a href="#add">add</a></li>
     </ul>
   </div>
+  </script>
+  <!-- using the component -->
+  <script type="text/x-handlebars">
+    {{community-calendar events=cevents}}
   </script>
 </body>
 </html>
