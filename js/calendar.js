@@ -60,8 +60,43 @@ var _events = [];
 
 }) ();
 
+// compile the template
+Ember.TEMPLATES['community-calendar'] = Ember.Handlebars.compile('\
+    <div id="tab-container" class="tab-container">\
+    <div class="tab-pane community-calendar" id="list">\
+      <ul class="event-list">\
+          {{#each event in events}}\
+          <li class="cc-event">\
+            <a href="">\
+              <div class="cc-event-date">\
+                <div class="cc-event-day">{{day event.date}}</div>\
+                <div class="cc-event-month">{{month event.date}}</div>\
+                <div class="cc-event-year">{{year event.date}}</div>\
+                <div class="cc-event-time">{{time event.date}}</div>\
+              </div>\
+              <div class="cc-event-title">{{event.title}}</div>\
+              <div class="cc-event-location">{{event.address}}</div>\
+            </a>\
+          </li>\
+          {{/each}}\
+      </ul>\
+    </div>\
+    <div class="tab-pane" id="cal">\
+      <h3>cal</h3>\
+    </div>\
+    <div class="tab-pane" id="add">\
+      <h3>add</h3>\
+    </div>\
+    <ul class="tabrow">\
+      <li class="active"><a href="#list">list</a></li>\
+      <li><a href="#cal">cal</a></li>\
+      <li><a href="#add">add</a></li>\
+    </ul>\
+  </div>');
+
 // initialise tabs
 BLUGCalendarApp.CommunityCalendarComponent = Ember.Component.extend({
+    templateName: 'community-calendar',
     didInsertElement : function(){
         Ember.run.next(function(){
             $('#tab-container').easytabs({
