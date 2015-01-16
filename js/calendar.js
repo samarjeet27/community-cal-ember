@@ -62,6 +62,7 @@ var _events = [];
 
 // compile the template
 Ember.TEMPLATES['community-calendar'] = Ember.Handlebars.compile('\
+    <div class="community-calendar">\
     <div id="tab-container" class="tab-container">\
     <div class="tab-pane community-calendar" id="list">\
       <ul class="event-list">\
@@ -92,6 +93,7 @@ Ember.TEMPLATES['community-calendar'] = Ember.Handlebars.compile('\
       <li><a href="#cal">cal</a></li>\
       <li><a href="#add">add</a></li>\
     </ul>\
+  </div>\
   </div>');
 
 // initialise tabs
