@@ -86,7 +86,14 @@ Ember.TEMPLATES['community-calendar'] = Ember.Handlebars.compile('\
       <h3>cal</h3>\
     </div>\
     <div class="tab-pane" id="add">\
-      <h3>add</h3>\
+      <font color="black" face="arial" size="3">\
+        <input placeholder="Title" type="text" name="title" required="required">\
+        <br><input placeholder="Location" type="text" name="location" required="required">\
+        <br><input placeholder="Date" type="text" name="date" required="required">\
+        <br><input placeholder="Time" type="text" name="time" required="required">\
+        <br><input placeholder="URL" type="text" name="url" required="required">\
+        <br><button class="btn"><b>Submit</b></button>\
+      </font>\
     </div>\
     <ul class="tabrow">\
       <li class="active"><a href="#list">list</a></li>\

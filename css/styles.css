@@ -7,3 +7,13 @@
     margin: 20px;
     width:250px;
 }
+
+#add input {
+	width: 90%;
+	margin-bottom: 1px;
+}
+
+.btn {
+	margin-top:2px;
+	display: block;
+}
