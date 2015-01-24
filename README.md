@@ -3,6 +3,12 @@ community-calendar-ember
 
 A rewrite of https://github.com/beijinglug/community-calendar/ using ember.js
 
+Demo
+---
+
+See live demo here http://samarjeet27.github.io/community-cal-ember
+
+
 Usage
 ---
 
