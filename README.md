@@ -8,17 +8,15 @@ Demo
 
 See live demo here http://samarjeet27.github.io/community-cal-ember
 
-
 Usage
 ---
 
 Include it
 
 ```html
- <!-- tabs framework -->
   <!-- stylesheet -->
   <link rel="stylesheet" href="css/styles.css"</link>
-
+  <!-- tabs framework -->
   <script src="js/jquery.easytabs.min.js"></script>
 
   <!-- community-calendar -->
