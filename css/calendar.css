@@ -1,6 +1,7 @@
 .tab-pane { height:150px;
             width:95%;
             overflow-y:scroll; }
+.community-calendar { -webkit-font-smoothing: antialiased;}
 .community-calendar li { display:table;
                          list-style-type: none; }
 .cc-event { width:210px; border: 1px solid grey; }
