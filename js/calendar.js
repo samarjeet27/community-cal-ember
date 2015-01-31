@@ -126,7 +126,7 @@ BLUGCalendarApp.steam.get('techgrind.events/order-by-date', function(data) {
 BLUGCalendarApp.ApplicationRoute = Ember.Route.extend({
     model: function() {
         return {
-            cevents: _events
+            events: _events
         }
     }
 });
