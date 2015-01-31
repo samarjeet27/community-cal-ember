@@ -1,5 +1,5 @@
 $.ajaxSetup({
-	async:false,
+	async: false,
 });
 
 if( BLUGCalendarApp == null ){
@@ -13,3 +13,7 @@ BLUGCalendarApp.steam = Ember.Object.create({
 		req.then(callback);
 	}
 });
+
+$.ajaxSetup({
+	async: true,
+})
