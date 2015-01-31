@@ -2,16 +2,14 @@ $.ajaxSetup({
 	async:false,
 });
 
-function Steam(App) {
-	App.Steam = Ember.Object.extend({
-		get: function(req, callback) {
-			var request = Ember.$.getJSON('http://dev-back1.techgrind.asia/scripts/rest.pike?request='+req);
-			request.then(callback)
-		},
-	});
+if( BLUGCalendarApp == null ){
+	var BLUGCalendarApp = Ember.Application.create();
 }
 
-Steam.create=function(App){
-	var s = new Steam(App);
-	return App.Steam.create();
-}
+BLUGCalendarApp.steam = Ember.Object.create({
+	get: function(req, callback) {
+		var req = Ember.$.getJSON('http://dev-back1.techgrind.asia/scripts/rest.pike?request='+req);
+		// callback function
+		req.then(callback);
+	}
+});

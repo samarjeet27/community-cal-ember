@@ -1,5 +1,7 @@
-// create ember-app instance
-var BLUGCalendarApp = Ember.Application.create();
+// create app if not present
+if( BLUGCalendarApp == null ){
+    var BLUGCalendarApp = Ember.Application.create();
+}
 // events
 var _events = [];
 
@@ -116,8 +118,7 @@ BLUGCalendarApp.CommunityCalendarComponent = Ember.Component.extend({
 });
 
 // get list of events
-var steam = Steam.create(BLUGCalendarApp);
-	steam.get('techgrind.events/order-by-date', function(data) {
+BLUGCalendarApp.steam.get('techgrind.events/order-by-date', function(data) {
 		_events = data['event-list'];
 	}
 );
